@@ -1,0 +1,13 @@
+version: 2
+
+models:
+    - name: eia_raw_data
+      description: "Data directly returned from EIA API"
+      columns:
+        - name: period
+          data_tests:
+            - not_null
+        - name: subba
+          data_tests:
+            - not_null
+            

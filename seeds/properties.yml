@@ -1,0 +1,25 @@
+seeds:
+  - name: subregion_locations
+    description: A mapping of balancing authority subregions to latitude/longitude pairs
+    columns:
+      - name: balancing_authority
+        data_tests:
+          - relationships:
+              arguments:
+                to: ref('dim_balancing_authority')
+                field: ba
+      - name: subregion
+        data_tests:
+        - relationships:
+            arguments:
+              to: ref('dim_subregion')
+              field: subregion
+      - name: lat
+        description: latitude
+        data_tests:
+          - not_null
+      - name: long
+        description: longitude
+        data_tests:
+          - not_null
+          
