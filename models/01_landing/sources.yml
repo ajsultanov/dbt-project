@@ -1,0 +1,8 @@
+version: 2
+
+sources:
+  - name: eia
+    database: MY_DATABASE
+    schema: AS_EIA
+    tables:
+      - name: eia_data

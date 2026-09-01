@@ -1,0 +1,7 @@
+version: 2
+
+models:
+    - name: eia_average
+      description: "EIA data averaged across time zones"
+    - name: eia_eastern
+      description: "EIA data filtered to Eastern time zone"
