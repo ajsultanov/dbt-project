@@ -1,15 +1,39 @@
-Welcome to your new dbt project!
+# Analytics Engineering Accelerator
 
-### Using the starter project
+This project is a data pipeline encompassing the daily ingestion of electricity demand data by balancing authority and subregion from the Energy Information Administration's (EIA) Open Data API.
 
-Try running the following commands:
-- dbt run
-- dbt test
+it includes
+
+- 1
+- 2
+- 3
+
+## Overview
+
+### Data Source
+
+### Snowflake Setup & Ingestion Script
+
+### dbt Project & Modelling
+
+## Installation ???
+### Setup ???
+### Usage ???
+
+## Snowflake
+
+### Components
+
+#### Setup
+
+#### Ingestion
+
+#### Scheduled Task
+
+## dbt
+
+### Components
 
 
-### Resources:
-- Learn more about dbt [in the docs](https://docs.getdbt.com/docs/introduction)
-- Check out [Discourse](https://discourse.getdbt.com/) for commonly asked questions and answers
-- Join the [dbt community](https://getdbt.com/community) to learn from other analytics engineers
-- Find [dbt events](https://events.getdbt.com) near you
-- Check out [the blog](https://blog.getdbt.com/) for the latest news on dbt's development and best practices
+
+

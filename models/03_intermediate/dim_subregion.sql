@@ -9,4 +9,6 @@ WITH subregions AS (
 SELECT
     row_number() OVER (ORDER BY subregion) AS subregion_key,
     *
-FROM subregions
+FROM subregions AS sub
+LEFT JOIN {{ ref('subregion_locations') }} AS loc
+    USING (subregion)

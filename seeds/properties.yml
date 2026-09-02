@@ -22,4 +22,8 @@ seeds:
         description: longitude
         data_tests:
           - not_null
-          
+  - name: holidays
+    description: US federal holidays for 2026-2027
+    config:
+      column_types:
+        date: DATE
