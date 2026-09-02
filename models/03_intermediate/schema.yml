@@ -1,0 +1,38 @@
+version: 2
+
+models:
+    - name: fact_demand
+      description: "Fact table for demand values"
+      columns:
+          - name: id
+            description: "The primary key for this table"
+            tests:
+                - unique
+                - not_null
+
+    - name: dim_balancing_authority
+      description: "Dimension table for balancing authorities"
+      columns:
+          - name: ba_key
+            description: "The primary key for this table"
+            tests:
+                - unique
+                - not_null
+
+    - name: dim_subregion
+      description: "Dimension table for subregions within balancing authorities"
+      columns:
+          - name: subregion_key
+            description: "The primary key for this table"
+            tests:
+                - unique
+                - not_null
+
+    - name: dim_date
+      description: "Dimension table for dates"
+      columns:
+          - name: date_key
+            description: "The primary key for this table"
+            tests:
+                - unique
+                - not_null
