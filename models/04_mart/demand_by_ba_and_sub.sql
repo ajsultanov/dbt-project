@@ -16,6 +16,8 @@ SELECT
     ba_name AS balancing_authority_name,
     subregion,
     subregion_name,
+    lat AS subregion_lat,
+    long AS subregion_long,
     date,
     year,
     month,
