@@ -9,12 +9,33 @@ models:
             tests:
                 - unique
                 - not_null
+          - name: ba_key
+            description: "The foreign key for dim_balancing_authority"
+            data_tests:
+            - relationships:
+                arguments:
+                  to: ref('dim_balancing_authority')
+                  field: ba_key
+          - name: subregion_key
+            description: "The foreign key for dim_subregion"
+            data_tests:
+            - relationships:
+                arguments:
+                  to: ref('dim_subregion')
+                  field: subregion_key
+          - name: date_key
+            description: "The foreign key for dim_date"
+            data_tests:
+            - relationships:
+                arguments:
+                  to: ref('dim_date')
+                  field: date_key
 
     - name: dim_balancing_authority
       description: "Dimension table for balancing authorities"
       columns:
           - name: ba_key
-            description: "The primary key for this table"
+            description: "Primary key"
             tests:
                 - unique
                 - not_null
@@ -23,7 +44,7 @@ models:
       description: "Dimension table for subregions within balancing authorities"
       columns:
           - name: subregion_key
-            description: "The primary key for this table"
+            description: "Primary key"
             tests:
                 - unique
                 - not_null
@@ -32,7 +53,7 @@ models:
       description: "Dimension table for dates"
       columns:
           - name: date_key
-            description: "The primary key for this table"
+            description: "Primary key"
             tests:
                 - unique
                 - not_null

@@ -1,5 +1,3 @@
-{{ config(materialized='view') }}
-
 SELECT 
     period,
     subba,
