@@ -1,0 +1,20 @@
+version: 2
+
+models:
+    - name: demand_by_ba
+      description: "Table for data analysis aggregated to the level of balancing authority"
+      columns:
+          - name: id
+            description: "Primary key"
+            tests:
+                - unique
+                - not_null
+
+    - name: demand_by_ba_and_sub
+      description: "Table for data analysis at the level of subregion"
+      columns:
+          - name: id
+            description: "Primary key"
+            tests:
+                - unique
+                - not_null

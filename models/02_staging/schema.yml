@@ -3,5 +3,11 @@ version: 2
 models:
     - name: eia_average
       description: "EIA data averaged across time zones"
+      columns:
+        - name: period
+          description: "Date field at the day level"
+          data_tests:
+            - not_null
+
     - name: eia_eastern
       description: "EIA data filtered to Eastern time zone"

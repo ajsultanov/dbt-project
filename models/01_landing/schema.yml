@@ -5,9 +5,11 @@ models:
       description: "Data directly returned from EIA API"
       columns:
         - name: period
+          description: "Date field at the day level"
           data_tests:
             - not_null
         - name: subba
+          description: "Subregion dimension field"
           data_tests:
             - not_null
             
