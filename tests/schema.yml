@@ -1,0 +1,3 @@
+data_tests:
+  - name: coords_within_bounds
+    description: "Test whether latitude and longitude are within the most extreme points of the contiguous United States"
