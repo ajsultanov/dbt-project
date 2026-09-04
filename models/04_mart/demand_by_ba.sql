@@ -9,7 +9,7 @@ WITH demand_date_ba AS (
 
 aggregate_to_ba AS (
     SELECT 
-        round(sum(avg_value), 2) AS avg_value,
+        round(sum(avg_mwh), 2) AS avg_mwh,
         ba AS balancing_authority,
         ba_name AS balancing_authority_name,
         date,

@@ -11,7 +11,7 @@ WITH demand_date_ba_sub AS (
 
 SELECT 
     id,
-    avg_value,
+    avg_mwh,
     ba AS balancing_authority,
     ba_name AS balancing_authority_name,
     subregion,

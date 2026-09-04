@@ -1,7 +1,7 @@
 WITH demand AS (    
     SELECT 
         date(period) AS date,
-        avg_value,
+        avg_mwh,
         subba,
         parent,
         modified_on
@@ -9,9 +9,9 @@ WITH demand AS (
 )
 
 SELECT 
-    row_number() OVER (ORDER BY date_key) AS id,
+    row_number() OVER (ORDER BY date_key, ba_key, subregion_key) AS id,
     date_key,
-    avg_value,
+    avg_mwh,
     subregion_key,
     ba_key,
     modified_on

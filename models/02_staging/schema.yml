@@ -8,6 +8,11 @@ models:
           description: "Date field at the day level"
           data_tests:
             - not_null
+        - name: avg_mwh
+          description: "Megawatt-hours aggregated to the subregion level, averaged across timezones"
+          data_tests:
+            - not_null
+            - not_zero
 
     - name: eia_eastern
       description: "EIA data filtered to Eastern time zone"
