@@ -39,14 +39,13 @@ The data is returned as json (a nested structure of key-value pairs) that looks 
         "value-units": "megawatthours"
       }, ...
 ```
-There are four dimensions: period, subba, parent, and timezone, and one metric: value, measured in megawatt-hours (MWh).
+There are four dimensions: period, subba, parent, and timezone, and one metric: value, measured in megawatt-hours (MWh). The reponse can be filtered by subba, parent, and timezone, and start and end dates can be supplied in the request.
 
-
-### Snowflake Setup & Ingestion Script
+### Snowflake — Setup & Ingestion Script
 
 The ingestion part of this project has two main components: a SQL file to set up the prerequisites for the connection to the API as well as a Python function to pre-fill the landing table with a month of data, and another SQL file setting up a schedule task (with a very similar function) that will hit the API endpoint to pull new data every day.
 
-Since Snowflake was the ultimate landing place for the data and you can register Python functions from within SQL files I decided to do that instead of using a separate Python ingestion script file.
+Since Snowflake was the ultimate landing place for the data and you can register Python functions from within SQL files I decided to do that instead of using a separate Python ingestion script file. 
 
 #### eia_setup.sql
 
@@ -64,31 +63,45 @@ I create a table in Snowflake with the requisite columns, aligning exactly with 
 
 #### eia_ingestion.sql
 
-This file creates a _task_ in Snowflake and schedules it to run daily. Tasks are a really powerful and convenient way to automate data processing and can run on a schedule or be triggered by events (not to mention they allow you to completely circumvent GitHub Actions). Defined within the task is another function called `get_current_energy_demand()` similar to the functions defined in eia_setup.sql. 
+This file creates a _task_ in Snowflake and schedules it to run daily. Tasks are a really powerful and convenient way to automate data processing and can run on a schedule or be triggered by events (not to mention they allow you to completely circumvent GitHub Actions). Defined within the task is another Python function called `get_current_energy_demand()` similar to the functions defined in eia_setup.sql and an `INSERT INTO` block utilizing the results of the function. I noticed some of the periods returned by the API had more records when queried on a later date, so the function declares a start date of 5 days previous and an end date of today. These records get written to the table with a `WHERE NOT EXISTS` clause to avoid overwriting exising data but adding any latecomer rows.
 
-### dbt Project & Modelling
+### dbt — Modelling & Deployment
 
+I created four layers in dbt to manage the data transformation pipeline. The first `01_landing` gets the raw data from the table in Snowflake and registers the source, doing no transformation except enforcing columns types. Then in `02_staging` I did a basic aggregation, losing the detail of time zone by averaging the demand value across, which I will explain further below. In `03_intermediate` I normalize the data by splitting date, balancing authority, and subregion into their own dimension tables, leaving just the demand value in a fact table, along with a unique `id`, a `modified_on` field, and the three foreign keys. In creating the dimension tables I used two small data sets from the seeds directory to add physical location data to the `dim_subregion` table and to check against holidays in the `dim_date` table. Finally in the `04_mart` schema I created two data marts from the star schema, one at the original grain of subregion and one aggregated to the balancing authority level.
+
+Since dbt allows you to manage CI/CD in the same app I created a job in dbt to handle deployment on a daily schedule. Every day (and about two hours after the ingestion job runs) the orchestration clones the repository, creates a profile from a second Snowflake connection, installs dependencies, and runs `dbt build` to the `DBT_PROD` schema in Snowflake.
+
+## Snowflake in depth
+### Setup
+### Components
+
+Everything is under the MY_DATABASE database. Ingestion and raw data is in the AS_EIA schema, dbt development is done in the DBT_ASULTANOV schema, and the dbt project is deployed to the DBT_PROD schema.
+
+## dbt in depth
+### Setup
+#### Connection to Snowflake - OpenSSL
 separate dbt setup sql file in snowflake
 
-
-## Installation ???
-### Setup ???
-### Usage ???
-
-## Snowflake
-
 ### Components
 
-#### Setup
+dbt_project.yml
 
-#### Ingestion
+#### Macros
+#### Models
 
-#### Scheduled Task
+Star schema:
+- fact_demand — one row per demand reading
+- dim_date — one row per date
+- dim_balancing_authority — one row per balancing authority
+- dim_subregion — one row per subregion
 
-## dbt
-
-### Components
-
+#### Seeds
+#### Tests
 
 
 
+
+
+## Installation
+### Setup
+### Usage
