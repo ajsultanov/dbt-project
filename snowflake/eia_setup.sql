@@ -50,7 +50,8 @@ def ApiData():
         return {"error": err}
 $$;
 
-SELECT as_eia.get_eia_metadata();
+SET eia_metadata = (SELECT as_eia.get_eia_metadata());
+SELECT $eia_metadata;
 
 CREATE OR REPLACE FUNCTION get_energy_demand(date VARCHAR) 
 RETURNS TABLE (period varchar, subba varchar, subba_name varchar, parent varchar, parent_name varchar, timezone varchar, value varchar)
