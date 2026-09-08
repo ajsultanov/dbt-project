@@ -180,6 +180,8 @@ Since dbt allows you to manage CI/CD in the same app I created a job in dbt to h
 - logging
 - monthly refresh job in case daily refresh doesn't capture everything
 - enrich data further
+    - another API call
+    - more csv data
 - do more with Jinja and templating
 - incremental materialization in dbt
 - actually build a dashboard
