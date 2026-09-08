@@ -184,4 +184,5 @@ Since dbt allows you to manage CI/CD in the same app I created a job in dbt to h
     - more csv data
 - do more with Jinja and templating
 - incremental materialization in dbt
+- trigger dbt build job with new data
 - actually build a dashboard
