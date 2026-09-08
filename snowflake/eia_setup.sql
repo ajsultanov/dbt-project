@@ -110,7 +110,7 @@ DECLARE
 BEGIN
   WHILE (:start_date < :end_date) DO
     INSERT INTO eia_data (period, subba, subba_name, parent, parent_name, timezone, value)
-        SELECT * FROM TABLE(get_energy(:start_date)) AS api
+        SELECT * FROM TABLE(get_energy_demand(:start_date)) AS api
         WHERE NOT EXISTS (
             SELECT 1 FROM eia_data AS data
             WHERE api.period = data.period
